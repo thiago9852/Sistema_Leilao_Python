@@ -132,9 +132,10 @@
     justify-content: center;
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
-.auction-title span {
+.auction-title p {
     display: inline-block;
     border: 0;
     font-size: 0;

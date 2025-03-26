@@ -15,6 +15,9 @@ def countTimer():
 def leiloes():
 	return render_template("leiloes.html")
 
+@app.route("/login")
+def login():
+	return render_template("/sign/login.html")
 
 if __name__ == '__main__':
 	app.run(debug=True)

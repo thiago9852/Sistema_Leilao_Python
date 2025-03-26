@@ -3,9 +3,9 @@
 {% block content %}
 
 
-<section class="home bg-emerald-950">
+<section class="home bg-emerald-950 min-h-screen pb-8">
     <!-- Início Carousel -->
-    <div class="scroll-container overflow-hidden pb-10">
+    <div class="scroll-container overflow-hidden mb-10">
         
         <section class="scroll-section relative h-screen flex flex-col md:flex-row">
             
@@ -20,7 +20,7 @@
             <div class="w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center p-8 bg-neutral-950">
                 <div class="max-w-lg float-animation text-reveal">
                     <h3
-                        class="mt-4 text-5xl md:text-6xl font-bold leading-none bg-gradient-to-r from-white to-neutral-400 bg-clip-text text-transparent">
+                        class="mt-4 text-4xl md:text-6xl font-bold leading-none bg-gradient-to-r from-white to-neutral-400 bg-clip-text text-transparent">
                         Tem algo especial para leiloar?</h3>
                     <p class="mt-6 text-neutral-400 text-lg leading-relaxed">Transforme seus itens em ótimos negócios!
                         Cadastre agora mesmo e coloque seus bens na vitrine para compradores interessados</p>
@@ -38,7 +38,7 @@
                 <div class="max-w-lg float-animation text-reveal">
                     <span class="countdownTimer text-neutral-400 tracking-wider text-sm font-mono"></span>
                     <h2
-                        class="mt-4 text-5xl md:text-7xl font-bold leading-none bg-gradient-to-r from-white to-neutral-400 bg-clip-text text-transparent">
+                        class="mt-4 text-4xl md:text-7xl font-bold leading-none bg-gradient-to-r from-white to-neutral-400 bg-clip-text text-transparent">
                         Diamante Hope</h2>
                     <p class="mt-6 text-neutral-400 text-lg leading-relaxed">Creating environments that inspire and
                         transform daily life.</p>
@@ -70,7 +70,7 @@
     <!-- Menu -->
     <div class="menu-items lg:mt-20">
         <div class="container mx-auto">
-            <div class="w-full h-screen">
+            <div class="w-full">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 px-7 pt-10"> 
                     
                     <div class="w-[18rem] flex flex-col gap-2 pt-5 px-4 shadow-lg rounded-lg bg-emerald-700 dark:bg-gray-900">
@@ -145,10 +145,10 @@
 
 
 <!-- Novos Leilões -->
-<section class="new-prod-auction mt-4">
+<section class="new-prod-auction mt-[20vh]">
     <div class="container mx-auto">
         <div class="prod-auction auction-title">
-            <h1 class="title-rubik max-w-2xl mb-3 text-3xl leading-none">Novos Produtos Disponíveis para Lance!</h1>
+            <h1 class="title-rubik max-w-2xl mb-3 text-3xl leading-none text-center">Novos Produtos Disponíveis para Lance!</h1>
             <span></span>
         </div>
 
@@ -242,7 +242,7 @@
 </section>
 
 <!-- Dashboard -->
-<section class="home-dashboard">
+<section class="home-dashboard mt-[20vh]">
     <div class="container mx-auto px-4 py-8">
         <div class="prod-auction auction-title">
             <h1 class="title-rubik max-w-2xl mb-3 text-3xl leading-none">Dashboard do Leilão Online</h1>
@@ -434,7 +434,7 @@
 </section>
 
 <!-- Em Destaque -->
-<section class="featured-item mt-[20vh]">
+<section class="featured-item mt-[20vh] mb-12">
     <div class="prod-auction auction-title">
         <h1 class="title-rubik max-w-2xl mb-3 text-3xl leading-none">Em Destaque</h1>
         <span></span>
@@ -442,7 +442,9 @@
     <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-stretch relative">
             <span
-                class="countdownTimer absolute top-2 left-2 bg-emerald-500 text-white text-xl font-bold px-2 py-1 rounded"></span>
+                class="countdownTimer absolute top-2 left-2 bg-emerald-500 text-white text-sm xs:text-base sm:text-lg font-bold px-2 py-1 rounded">
+            </span>
+
             <div class="grid place-content-center rounded bg-emerald-100 p-6 sm:p-8">
                 <div class="mx-auto max-w-md text-center lg:text-left">
                     <header>
