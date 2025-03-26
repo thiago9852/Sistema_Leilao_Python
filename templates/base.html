@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{{url_for('static',filename='/src/output.css')}}">
+  <link rel="stylesheet" href="{{url_for('static',filename='/src/css/style.css')}}">
+
+  <!-- Google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Boldonse&family=Iansui&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+    rel="stylesheet">
+
+  {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+  <header>
+    <nav class="bg-emerald-950">
+      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
+        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+          <img src="/static/image/BSI-Logo.png" class="h-14" alt="Logo" />
+        </a>
+        <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <button type="button"
+            class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+            id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
+            data-dropdown-placement="bottom">
+            <span class="sr-only">Usuário menu</span>
+            <img class="w-8 h-8 rounded-full" src="/static/image/suporte-menu.jpg" alt="user photo">
+          </button>
+          <!-- Dropdown menu -->
+          <div
+            class="z-50 hidden my-4 text-base list-none divide-y divide-gray-100 rounded-lg shadow-sm dark:divide-gray-600"
+            id="user-dropdown">
+            <div class="px-4 py-3">
+              <span class="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
+              <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
+            </div>
+            <ul class="py-2" aria-labelledby="user-menu-button">
+              <li>
+                <a href="/dashboard"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:text-white">Settings</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:text-white">Earnings</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:text-white">Sign
+                  out</a>
+              </li>
+            </ul>
+          </div>
+          <button data-collapse-toggle="navbar-user" type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-user" aria-expanded="false">
+            <span class="sr-only">Abrir menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M1 1h15M1 7h15M1 13h15" />
+            </svg>
+          </button>
+        </div>
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+          <ul
+            class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
+            <li>
+              <a href="/" class="block py-2 px-3 text-white rounded-sm md:bg-transparent md:hover:text-[#6ee7b7]"
+                aria-current="page">Home</a>
+            </li>
+            <li>
+              <a href="#"
+                class="block py-2 px-3 text-white rounded-sm md:hover:bg-transparent md:hover:text-[#6ee7b7]">Serviços</a>
+            </li>
+            <li>
+              <a href="/leiloes"
+                class="block py-2 px-3 text-white rounded-sm md:hover:bg-transparent md:hover:text-[#6ee7b7]">Leilões</a>
+            </li>
+            <li>
+              <a href="#"
+                class="block py-2 px-3 text-white rounded-sm md:hover:bg-transparent md:hover:text-[#6ee7b7]">Saiba
+                Mais</a>
+            </li>
+            <li>
+              <a href="#"
+                class="block py-2 px-3 text-white rounded-sm md:hover:bg-transparent md:hover:text-[#6ee7b7]">Contato</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  {% block content %}{% endblock %}
+
+  <footer class="footer-section bg-gradient-to-b from-emerald-800 to-emerald-900 text-emerald-100">
+    <div class="px-4 pt-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+      <div class="grid gap-10 row-gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="sm:col-span-2">
+          <a href="/" aria-label="Go home" title="Company" class="inline-flex items-center">
+            <img src="/static/image/BSI-Logo.png" class="h-14" alt="Logo" />
+          </a>
+          <div class="mt-6 lg:max-w-sm">
+            <p class="text-sm text-emerald-100">
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+              rem aperiam.
+            </p>
+            <p class="mt-4 text-sm text-emerald-100">
+              Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            </p>
+          </div>
+        </div>
+        <div class="space-y-2 text-sm">
+          <p class="text-base font-bold tracking-wide text-emerald-300">Contatos</p>
+          <div class="flex">
+            <p class="mr-1 text-emerald-100">Fone:</p>
+            <a href="tel:850-123-5021"
+              class="transition-colors duration-300 text-emerald-300 hover:text-emerald-400">850-123-5021</a>
+          </div>
+          <div class="flex">
+            <p class="mr-1 text-emerald-100">Email:</p>
+            <a href="mailto:info@lorem.mail"
+              class="transition-colors duration-300 text-emerald-300 hover:text-emerald-400">BSI@bsileilao.com</a>
+          </div>
+          <div class="flex">
+            <p class="mr-1 text-emerald-100">Endereço:</p>
+            <a href="https://www.google.com/maps" target="_blank"
+              class="transition-colors duration-300 text-emerald-300 hover:text-emerald-400">
+              312 Lovely Street, NY
+            </a>
+          </div>
+        </div>
+        <div>
+          <span class="text-base font-bold tracking-wide text-emerald-300">Social</span>
+          <div class="flex items-center mt-1 space-x-3">
+            <a href="/" class="text-emerald-100 transition-colors duration-300 hover:text-emerald-400">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="h-5">
+                <path
+                  d="M24,4.6c-0.9,0.4-1.8,0.7-2.8,0.8c1-0.6,1.8-1.6,2.2-2.7c-1,0.6-2,1-3.1,1.2c-0.9-1-2.2-1.6-3.6-1.6 c-2.7,0-4.9,2.2-4.9,4.9c0,0.4,0,0.8,0.1,1.1C7.7,8.1,4.1,6.1,1.7,3.1C1.2,3.9,1,4.7,1,5.6c0,1.7,0.9,3.2,2.2,4.1 C2.4,9.7,1.6,9.5,1,9.1c0,0,0,0,0,0.1c0,2.4,1.7,4.4,3.9,4.8c-0.4,0.1-0.8,0.2-1.3,0.2c-0.3,0-0.6,0-0.9-0.1c0.6,2,2.4,3.4,4.6,3.4 c-1.7,1.3-3.8,2.1-6.1,2.1c-0.4,0-0.8,0-1.2-0.1c2.2,1.4,4.8,2.2,7.5,2.2c9.1,0,14-7.5,14-14c0-0.2,0-0.4,0-0.6 C22.5,6.4,23.3,5.5,24,4.6z">
+                </path>
+              </svg>
+            </a>
+            <a href="/" class="text-emerald-100 transition-colors duration-300 hover:text-emerald-400">
+              <svg viewBox="0 0 30 30" fill="currentColor" class="h-6">
+                <circle cx="15" cy="15" r="4"></circle>
+                <path
+                  d="M19.999,3h-10C6.14,3,3,6.141,3,10.001v10C3,23.86,6.141,27,10.001,27h10C23.86,27,27,23.859,27,19.999v-10   C27,6.14,23.859,3,19.999,3z M15,21c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S18.309,21,15,21z M22,9c-0.552,0-1-0.448-1-1   c0-0.552,0.448-1,1-1s1,0.448,1,1C23,8.552,22.552,9,22,9z">
+                </path>
+              </svg>
+            </a>
+            <a href="/" class="text-emerald-100 transition-colors duration-300 hover:text-emerald-400">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="h-5">
+                <path
+                  d="M22,0H2C0.895,0,0,0.895,0,2v20c0,1.105,0.895,2,2,2h11v-9h-3v-4h3V8.413c0-3.1,1.893-4.788,4.659-4.788 c1.325,0,2.463,0.099,2.795,0.143v3.24l-1.918,0.001c-1.504,0-1.795,0.715-1.795,1.763V11h4.44l-1,4h-3.44v9H22c1.105,0,2-0.895,2-2 V2C24,0.895,23.105,0,22,0z">
+                </path>
+              </svg>
+            </a>
+          </div>
+          <p class="mt-4 text-sm text-emerald-100">
+            Bacon ipsum dolor amet short ribs pig sausage prosciutto chicken spare ribs salami.
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-col-reverse justify-between pt-5 pb-10 border-t border-emerald-500 lg:flex-row">
+        <p class="text-sm text-emerald-300">
+          © Copyright 2025 BSI - Leilão Inc. Todos os Direitos Reservados.
+        </p>
+        <ul class="flex flex-col mb-3 space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row">
+          <li>
+            <a href="/" class="text-sm text-emerald-300 transition-colors duration-300 hover:text-emerald-400">F.A.Q</a>
+          </li>
+          <li>
+            <a href="/" class="text-sm text-emerald-300 transition-colors duration-300 hover:text-emerald-400">Privacy
+              Policy</a>
+          </li>
+          <li>
+            <a href="/" class="text-sm text-emerald-300 transition-colors duration-300 hover:text-emerald-400">Terms &
+              Conditions</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie policy 
+  <div class="fixed bottom-12 left-1/2 z-50 -translate-x-1/2 rounded-full bg-white dark:bg-gray-800 p-2 drop-shadow-2xl max-sm:w-11/12" id="gdpr">
+    <div class="flex items-center justify-between gap-6 text-sm">
+      <div class="content-left pl-4 dark:text-white">
+        This website uses cookies to improve your web experience.
+      </div>
+      <div class="content-right text-end">
+        <button class="cursor-pointer rounded-full bg-black dark:bg-gray-600 px-4 py-2 text-white">Accept</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Voltar para o topo -->
+  <button id="to-top-button" onclick="goToTop()" title="Go To Top"
+    class="hidden fixed z-50 bottom-10 right-10 p-4 border-0 w-14 h-14 rounded-full shadow-md bg-purple-600 hover:bg-emerald-700 text-white text-lg font-semibold transition-colors duration-300">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+      <path d="M12 4l8 8h-6v8h-4v-8H4l8-8z" />
+    </svg>
+    <span class="sr-only">Voltar</span>
+  </button>
+
+  {% block extra_js %}{% endblock %}
+  <script src="/static/src/js/reduceTime.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tailwindcss-cdn@3.4.1/tailwindcss.js"></script>
+  <script src="//unpkg.com/alpinejs" defer></script>
+  <script src="/static/src/js/actions.js"></script>
+</body>
+
+</html>
