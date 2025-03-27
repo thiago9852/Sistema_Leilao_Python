@@ -15,9 +15,23 @@ def countTimer():
 def leiloes():
 	return render_template("leiloes.html")
 
+@app.route("/leiloes/<categoria>")
+def leiloes_categoria(categoria):
+    categorias_disponiveis = ["veiculos", "imoveis", "eletronicos"]
+    
+    if categoria not in categorias_disponiveis:
+        return "Categoria não encontrada", 404
+    
+    return render_template("leiloes_categoria.html", categoria=categoria)
+
 @app.route("/login")
 def login():
 	return render_template("/sign/login.html")
+
+@app.route("/register")
+def register():
+	return render_template("/sign/register.html")
+
 
 if __name__ == '__main__':
 	app.run(debug=True)

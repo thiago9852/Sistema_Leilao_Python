@@ -8,8 +8,8 @@
 
 </head>
 
-<body class="flex flex-col items-center justify-center">
-    <nav class="bg-emerald-950">
+<body class="flex flex-col items-center justify-center bg-emerald-50">
+    <nav class="bg-emerald-950 w-full">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
           <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="/static/image/BSI-Logo.png" class="h-14" alt="Logo" />
@@ -40,12 +40,12 @@
         </div>
       </nav>
 
-    <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm border border-gray-200 relative overflow-hidden">
+    <div class="bg-white p-8 rounded-2xl shadow-lg mt-10 w-full max-w-sm border border-gray-200 relative overflow-hidden">
         <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 to-emerald-200"></div>
         <div class="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-emerald-500 to-emerald-200"></div>
         <div class="absolute top-0 right-0 h-full w-1 bg-gradient-to-b from-emerald-500 to-emerald-200"></div>
         <div class="flex flex-col items-center">
-            <img src="/static/image/BSI-Logo.png" alt="Profile Picture" class="w-14 h-14 rounded-full p-2 bg-emerald-950">
+            <img src="/static/image/BSI-LogoSemNome.png" alt="Profile Picture" class="w-14 h-14 rounded-full p-2 bg-emerald-950">
             <h2 class="text-xl font-semibold mt-2">Bem-Vindo!</h2>
             <p class="text-gray-500 text-sm">Faça login para continuar</p>
         </div>
@@ -56,17 +56,24 @@
             <label class="block text-sm font-medium text-gray-700 mt-4">Senha</label>
             <div class="relative">
                 <input type="password" placeholder="Senha" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md  focus:outline-none">
-                <span class="absolute right-3 top-3 cursor-pointer text-gray-500">👁</span>
             </div>
             
             <div class="flex items-center justify-between mt-4">
-                <a href="#" class="text-sm text-blue-500 hover:underline">Esqueceu a senha?</a>
+              <a href="/register" class="text-sm text-blue-500 hover:underline">Não tem uma conta?</a>
+              <a href="#" class="text-sm text-blue-500 hover:underline">Esqueceu a senha?</a>
             </div>
             
             <button class="mt-6 w-full bg-emerald-600 hover:bg-indigo-700 text-white py-2 rounded-md text-center font-semibold">Login</button>
         </form>
     </div>
 
+    <footer class="bg-emerald-950 justify-center p-5 w-full mt-10 fixed bottom-0">
+      <div class="copy">
+        <p class="text-sm text-emerald-300 text-center">
+          © Copyright 2025 Leilão BSI Inc. Todos os Direitos Reservados.
+        </p>
+      </div>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/tailwindcss-cdn@3.4.1/tailwindcss.js"></script>
 </body>
 </html>
