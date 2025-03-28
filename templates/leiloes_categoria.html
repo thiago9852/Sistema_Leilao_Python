@@ -2,6 +2,43 @@
 
 {% block content %}
 <section class="auction-category mt-5 pt-10">
+    
+    <section class="filter-section bg-emerald-50 p-4 rounded-md shadow-md mb-6">
+        <form method="GET" action="{{ url_for('leiloes') }}" class="flex flex-wrap gap-4 bg-emerald-100 p-4 rounded-lg">
+            
+            <input type="text" name="q" placeholder="Buscar leilão..."
+                class="px-4 py-2 rounded-md border border-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+                value="{{ request.args.get('q', '') }}">
+        
+            
+            <select name="sort_data" class="px-4 py-2 rounded-md border border-gray-400">
+                <option value="">Ordenar por data</option>
+                <option value="asc" {% if request.args.get('sort_data') == 'asc' %}selected{% endif %}>Mais antigo</option>
+                <option value="desc" {% if request.args.get('sort_data') == 'desc' %}selected{% endif %}>Mais recente</option>
+            </select>
+        
+           
+            <select name="sort_lance" class="px-4 py-2 rounded-md border border-gray-400">
+                <option value="">Ordenar por lance</option>
+                <option value="asc" {% if request.args.get('sort_lance') == 'asc' %}selected{% endif %}>Menor primeiro</option>
+                <option value="desc" {% if request.args.get('sort_lance') == 'desc' %}selected{% endif %}>Maior primeiro</option>
+            </select>
+        
+            
+            <select name="sort_tempo" class="px-4 py-2 rounded-md border border-gray-400">
+                <option value="">Ordenar por tempo restante</option>
+                <option value="asc" {% if request.args.get('sort_tempo') == 'asc' %}selected{% endif %}>Mais tempo</option>
+                <option value="desc" {% if request.args.get('sort_tempo') == 'desc' %}selected{% endif %}>Menos tempo</option>
+            </select>
+        
+            
+            <button type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700">
+                Filtrar
+            </button>
+        </form>
+        
+    </section>
+
     <div class="j">
         <div class="auctions-scroll flex-wrap flex">
             <!-- Card 1 -->

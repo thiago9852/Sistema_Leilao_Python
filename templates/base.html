@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="{{url_for('static',filename='/src/output.css')}}">
   <link rel="stylesheet" href="{{url_for('static',filename='/src/css/style.css')}}">
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" />
   <!-- Google fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,28 +28,34 @@
         </a>
         <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <button type="button"
-            class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+            class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-600"
             id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
             data-dropdown-placement="bottom">
             <span class="sr-only">Usuário menu</span>
-            <img class="w-8 h-8 rounded-full" src="/static/image/suporte-menu.jpg" alt="user photo">
+            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-gray-300 text-gray-600">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/>
+              </svg>
+            </div>
           </button>
-          <!-- Dropdown menu -->
+
+        <!-- Dropdown menu -->
           <div
-            class="z-50 hidden my-4 text-base list-none divide-y divide-gray-100 rounded-lg shadow-sm dark:divide-gray-600"
+            class="z-50 hidden my-4 text-base list-none divide-y bg-emerald-950 divide-gray-100 rounded shadow-sm dark:divide-gray-600"
             id="user-dropdown">
             <ul class="py-2" aria-labelledby="user-menu-button">
               <li>
                 <a href="/dashboard"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                  class="block px-4 py-2 text-sm text-white hover:bg-emerald-700 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
               </li>
               <li>
                 <a href="/login"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:text-white">Entrar</a>
+                  class="block px-4 py-2 text-sm text-white hover:bg-emerald-700 dark:text-gray-200 dark:hover:text-white">Entrar</a>
               </li>
               
             </ul>
           </div>
+
           <button data-collapse-toggle="navbar-user" type="button"
             class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="navbar-user" aria-expanded="false">
@@ -59,6 +66,8 @@
             </svg>
           </button>
         </div>
+
+      <!-- Itens do menu -->
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
           <ul
             class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
@@ -188,8 +197,9 @@
       </div>
     </div>
   </div>
+  -->
 
-  <!-- Voltar para o topo -->
+<!-- Voltar para o topo -->
   <button id="to-top-button" onclick="goToTop()" title="Go To Top"
     class="hidden fixed z-50 bottom-10 right-10 p-4 border-0 w-14 h-14 rounded-full shadow-md bg-purple-600 hover:bg-emerald-700 text-white text-lg font-semibold transition-colors duration-300">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
@@ -205,6 +215,10 @@
   <script src="https://cdn.jsdelivr.net/npm/tailwindcss-cdn@3.4.1/tailwindcss.js"></script>
   <script src="//unpkg.com/alpinejs" defer></script>
   <script src="/static/src/js/actions.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 </body>
 
 </html>

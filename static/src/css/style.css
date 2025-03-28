@@ -380,3 +380,14 @@
     margin-bottom: 0.5rem;
     text-transform: uppercase;
 }
+
+/* USER */
+.user-line-title {
+    width: 75px;
+    height: 5px;
+    background: #34d399;
+    margin-bottom: 15px;
+    justify-content: start;
+    display: flex;
+    align-items: start;
+}

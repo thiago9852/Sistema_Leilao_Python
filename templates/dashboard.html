@@ -2,4 +2,341 @@
 
 {% block content %}
 
+
+<!-- Painel do Usuário -->
+<div class="container mx-auto px-4 py-8">
+    <div class="flex flex-col md:flex-row gap-8">
+
+        <!-- Sidebar -->
+        <aside class="w-full md:w-64 bg-white rounded-lg shadow p-4 h-fit" data-aos="fade-right">
+            <div class="text-center mb-6">
+                <!-- <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Usuário" class="w-24 h-24 rounded-full mx-auto mb-3"> -->
+                <div class="flex items-center justify-center w-16 h-16 rounded-full bg-gray-300 text-gray-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
+                    </svg>
+                </div>
+                <h2 class="text-xl font-semibold">Teste da Silva</h2>
+                <p class="text-gray-600 text-sm">Membro desde: Mar/2025</p>
+                <!-- <div class="mt-2">
+                        <span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-1 rounded">Verificado</span>
+                    </div> -->
+            </div>
+
+            <nav class="space-y-2">
+                <a href="#" class="flex items-center space-x-2 p-2 bg-emerald-100 text-emerald-800 rounded">
+                    <i class="fas fa-tachometer-alt w-5"></i>
+                    <span>Visão Geral</span>
+                </a>
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded">
+                    <i class="fas fa-gavel w-5"></i>
+                    <span>Meus Leilões</span>
+                </a>
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded">
+                    <i class="fas fa-hand-holding-usd w-5"></i>
+                    <span>Meus Lances</span>
+                </a>
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded">
+                    <i class="fas fa-trophy w-5"></i>
+                    <span>Arremates</span>
+                </a>
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded">
+                    <i class="fas fa-cog w-5"></i>
+                    <span>Configurações</span>
+                </a>
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded">
+                    <i class="fas fa-question-circle w-5"></i>
+                    <span>Ajuda</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="flex-1">
+
+            <!-- Seção de Resumo -->
+            <section class="bg-white rounded-lg shadow p-6 mb-8" data-aos="fade-up">
+                <h2 class="text-xl font-semibold mb-2">Visão Geral</h2>
+                <p class="user-line-title"></p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-emerald-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-600">Leilões Ativos</p>
+                                <p class="text-2xl font-bold">5</p>
+                            </div>
+                            <i class="fas fa-gavel text-blue-500 text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-600">Lances Ativos</p>
+                                <p class="text-2xl font-bold">12</p>
+                            </div>
+                            <i class="fas fa-hand-holding-usd text-green-500 text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-600">Arremates</p>
+                                <p class="text-2xl font-bold">3</p>
+                            </div>
+                            <i class="fas fa-trophy text-purple-500 text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção de Leilões Ativos -->
+            <section class="bg-white rounded-lg shadow p-6 mb-8" data-aos="fade-up" data-aos-delay="100">
+                <div class="user-title flex justify-between items-center mb-2">
+                    <h2 class="text-xl font-semibold">Meus Leilões Ativos</h2>
+                    <a href="#" class="text-sm text-emerald-600 hover:underline">Ver todos</a>
+                </div>
+                <p class="user-line-title"></p>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Item</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Lance Atual</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Lances</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Termina em</th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10">
+                                            <img class="h-10 w-10 rounded-full"
+                                                src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80"
+                                                alt="">
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">Carro Esportivo</div>
+                                            <div class="text-sm text-gray-500">Veículo</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    R$ 85.000.000
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    14
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <span
+                                        class="countdownTimer px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-red-500">
+
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <a href="#" class="text-emerald-600 hover:text-emerald-900 mr-3">Editar</a>
+                                    <a href="#" class="text-red-600 hover:text-red-900">Encerrar</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10">
+                                            <img class="h-10 w-10 rounded-full"
+                                                src="https://images.adsttc.com/media/images/57a0/0c55/e58e/ce72/e600/00b4/large_jpg/ap_higienopolis_(4).jpg?1470106702"
+                                                alt="">
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">APT Higienópolis 200m²</div>
+                                            <div class="text-sm text-gray-500">Imóvel</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    R$ 3.200.000
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    8
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <span
+                                        class="countdownTimer px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-red-500">
+
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <a href="#" class="text-emerald-600 hover:text-emerald-900 mr-3">Editar</a>
+                                    <a href="#" class="text-red-600 hover:text-red-900">Encerrar</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <button
+                        class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded inline-flex items-center">
+                        <i class="fas fa-plus mr-2"></i> Criar Novo Leilão
+                    </button>
+                </div>
+            </section>
+
+            <!-- Seção de Lances Ativos -->
+            <section class="bg-white rounded-lg shadow p-6 mb-8" data-aos="fade-up" data-aos-delay="200">
+                <div class="user-title flex justify-between items-center mb-2">
+                    <h2 class="text-xl font-semibold">Meus Lances Ativos</h2>
+                    <a href="#" class="text-sm text-emerald-600 hover:underline">Ver todos</a>
+                </div>
+                <p class="user-line-title"></p>
+
+                <div class="space-y-4">
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <div class="flex items-start">
+                            <img src="https://images.unsplash.com/photo-1535478044878-3ed83d5456ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80"
+                                alt="Coleção de Moedas" class="w-16 h-16 rounded object-cover mr-4">
+                            <div class="flex-1">
+                                <h3 class="font-medium text-lg">Coleção de Moedas</h3>
+                                <p class="text-gray-600 text-sm mb-2">Itens Diversos</p>
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="text-sm text-gray-500">Meu lance:</span>
+                                        <span class="font-bold ml-1">R$ 2.500</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-sm text-gray-500">Lance atual:</span>
+                                        <span class="font-bold ml-1 text-emerald-500">R$ 8.500</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-sm text-gray-500">Termina em:</span>
+                                        <span class="countdownTimer text-red-500 font-bold ml-1"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="bg-emerald-500 hover:bg-emerald-700 text-white py-1 px-3 rounded text-sm">
+                                Dar novo lance
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <div class="flex items-start">
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80"
+                                alt="Tênis Esportivo" class="w-16 h-16 rounded object-cover mr-4">
+                            <div class="flex-1">
+                                <h3 class="font-medium text-lg">Tênis Esportivo Premium</h3>
+                                <p class="text-gray-600 text-sm mb-2">Itens Diversos</p>
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="text-sm text-gray-500">Meu lance:</span>
+                                        <span class="font-bold ml-1">R$ 450</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-sm text-gray-500">Lance atual:</span>
+                                        <span class="font-bold ml-1 text-emerald-500">R$ 450</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-sm text-gray-500">Termina em:</span>
+                                        <span class="countdownTimer text-red-500 font-bold ml-1"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button
+                                class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-3 rounded text-sm cursor-not-allowed"
+                                disabled>
+                                Seu lance é o maior
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção de Arremates Recentes -->
+            <section class="bg-white rounded-lg shadow p-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="text-xl font-semibold">Meus Arremates</h2>
+                    <a href="#" class="text-sm text-emerald-600 hover:underline">Ver todos</a>
+                </div>
+                <p class="user-line-title"></p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&h=200&q=80"
+                            alt="Relógio" class="w-full h-40 object-cover rounded mb-3">
+                        <h3 class="font-medium text-lg mb-1">Relógio de Luxo</h3>
+                        <p class="text-gray-600 text-sm mb-2">Arrematado em: 15/03/2023</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-emerald-700">R$ 3.200</span>
+                            <button class="text-sm text-blue-600 hover:underline">Detalhes</button>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <img src="https://th.bing.com/th/id/OIP.UrGC-bmiTjRpSfoeBjmC-QHaEK?w=1400&h=787&rs=1&pid=ImgDetMain"
+                            alt="Móvel Antigo" class="w-full h-40 object-cover rounded mb-3">
+                        <h3 class="font-medium text-lg mb-1">Móvel Antigo</h3>
+                        <p class="text-gray-600 text-sm mb-2">Arrematado em: 10/03/2023</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-emerald-700">R$ 1.750</span>
+                            <button class="text-sm text-blue-600 hover:underline">Detalhes</button>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <img src="https://images.unsplash.com/photo-1564466809058-bf4114d55352?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&h=200&q=80"
+                            alt="Câmera Fotográfica" class="w-full h-40 object-cover rounded mb-3">
+                        <h3 class="font-medium text-lg mb-1">Câmera Fotográfica</h3>
+                        <p class="text-gray-600 text-sm mb-2">Arrematado em: 05/03/2023</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-emerald-700">R$ 2.100</span>
+                            <button class="text-sm text-blue-600 hover:underline">Detalhes</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: false
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const userMenu = document.querySelector('.relative');
+        const dropdown = userMenu.querySelector('.hidden');
+
+        userMenu.addEventListener('click', function () {
+            dropdown.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!userMenu.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    });
+</script>
 {% endblock %}
