@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <!-- Cabeçalho com timer -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold">Vinho Château Lafite 1982</h1>
+            <span class="countdownTimer bg-red-600 text-white text-center py-2 px-4 rounded-md"></span>
+        </div>
+        
+        <!-- Seção principal com imagem e informações -->
+        <div class="flex flex-col md:flex-row gap-6">
+            <!-- Galeria de imagens -->
+            <div class="w-full md:w-1/2">
+                <div class="relative w-full overflow-hidden rounded-lg shadow-md">
+                    <div class="slides flex transition-transform duration-500">
+                        <img src="https://maywines.com/wp-content/uploads/2023/02/lafite-rothschild-1982-pauillac-bordeaux-1000x1333.jpg" alt="Garrafa de Vinho 1" class="w-full max-h-80 object-cover">
+                        <img src="https://th.bing.com/th/id/OIP.OE4CB_uHEIXxhuenAk9HpAHaId?rs=1&pid=ImgDetMain" alt="Garrafa de Vinho 2" class="w-full max-h-80 object-cover">
+                        <img src="https://cdn11.bigcommerce.com/s-hg93lnuu9r/images/stencil/608x608/products/21291/22165/chateau-paradis-casseuil-bordeaux__14802.1661941198.jpg?c=2" alt="Garrafa de Vinho 3" class="w-full max-h-80 object-cover">
+                        <img src="https://maywines.com/wp-content/uploads/2023/02/lafite-rothschild-1982-pauillac-bordeaux-1000x1333.jpg" alt="Garrafa de Vinho 4" class="w-full max-h-80 object-cover">
+                    </div>
+                </div>
+                
+                <div class="flex justify-center mt-4 gap-2">
+                    <button class="prev bg-emerald-400 text-white px-4 py-2 rounded hover:bg-emerald-500">Anterior</button>
+                    <button class="next bg-emerald-400 text-white px-4 py-2 rounded hover:bg-emerald-500">Próximo</button>
+                </div>
+            </div>
+            
+            <!-- Informações do leilão -->
+            <div class="w-full md:w-1/2">
+                <h3 class="text-2xl font-bold mb-4">Vinho Château Lafite 1982</h3>
+                
+                <div class="bg-emerald-50 p-4 rounded-lg mb-4">
+                    <p class="text-lg mb-2">Lance inicial:<span class="font-semibold text-emerald-800"> R$ 15.000,00</span></p>
+                    <p class="text-lg">Lance Atual:<span class="font-semibold text-red-800"> R$ 22.800,00</span> por SAM10</p>
+                </div>
+                
+                <p class="text-gray-700 mb-4">Garrafa de vinho Château Lafite Rothschild, safra 1982. Proveniência garantida, armazenada em adega climatizada. Considerada uma das melhores safras do século XX.</p>
+                
+                <div class="grid grid-cols-2 gap-2 mb-4">
+                    <p class="text-gray-700"><strong>Leiloado por:</strong> Teste da Silva</p>
+                    <p class="text-gray-700"><strong>Data de Início:</strong> 01/01/2023</p>
+                    <p class="text-gray-700"><strong>Data de Término:</strong> 10/01/2023</p>
+                </div>
+                
+                <div class="flex gap-4 mt-6">
+                    <button class="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700 w-full">Fazer um lance</button>
+                    <a href="#" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 w-full text-center">Voltar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const slides = document.querySelector('.slides');
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+    let currentIndex = 0;
+
+    function updateSlider() {
+        const slideWidth = slides.children[0].clientWidth;
+        slides.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    }
+
+    prevButton.addEventListener('click', () => {
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.children.length - 1;
+        updateSlider();
+    });
+
+    nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex < slides.children.length - 1) ? currentIndex + 1 : 0;
+        updateSlider();
+    });
+
+    window.addEventListener('resize', updateSlider);
+</script>
+{% endblock %}
