@@ -46,35 +46,11 @@
                 </div>
                 
                 <div class="flex gap-4 mt-6">
-                    <button class="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700 w-full">Fazer um lance</button>
+                    <button id="openModal" class="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700 w-full">Fazer um lance</button>
                     <a href="#" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 w-full text-center">Voltar</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    const slides = document.querySelector('.slides');
-    const prevButton = document.querySelector('.prev');
-    const nextButton = document.querySelector('.next');
-    let currentIndex = 0;
-
-    function updateSlider() {
-        const slideWidth = slides.children[0].clientWidth;
-        slides.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-    }
-
-    prevButton.addEventListener('click', () => {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.children.length - 1;
-        updateSlider();
-    });
-
-    nextButton.addEventListener('click', () => {
-        currentIndex = (currentIndex < slides.children.length - 1) ? currentIndex + 1 : 0;
-        updateSlider();
-    });
-
-    window.addEventListener('resize', updateSlider);
-</script>
 {% endblock %}
