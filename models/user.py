@@ -1,8 +1,10 @@
-# Código para criar a tabela USER no banco de dado
-from flask import SQLAlchemy
+# Código para criar a tabela USER no banco de dados
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+
 db = SQLAlchemy()
 
+# Modelo para Usuário
 class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
