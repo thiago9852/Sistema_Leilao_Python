@@ -3,12 +3,35 @@ from models import Leilao, User, Lance
 from database.queries import get_leilao_by_id, get_all_leiloes
 from flask_bcrypt import Bcrypt  # Import bcrypt
 from flask_login import current_user  # Import current_user
-from database import db_session  # Import db_session
+from database import execute_query
 
 bcrypt = Bcrypt()
 
 auction_bp = Blueprint('auction_bp', __name__, template_folder='templates', static_folder='static')
 
+@auction_bp.route("/")
+@auction_bp.route("/index")
+def index():
+    # Obter os leilões mais recentes
+    leiloes_recentes_query = "SELECT * FROM leiloes ORDER BY data_inicio DESC LIMIT 4"
+    leiloes_recentes = execute_query(leiloes_recentes_query)
+
+    # Obter o leilão com o maior lance atualmente
+    leilao_maior_lance_query = "SELECT * FROM leiloes ORDER BY maior_lance DESC LIMIT 1"
+    leilao_maior_lance = execute_query(leilao_maior_lance_query)
+
+    # Obter os leilões em destaque (mais visualizados)
+    leiloes_destaque_query = "SELECT * FROM leiloes ORDER BY visualizacoes DESC LIMIT 2"
+    leiloes_destaque = execute_query(leiloes_destaque_query)
+
+    return render_template(
+        "index.html",
+        leiloes_recentes=leiloes_recentes,
+        leilao_maior_lance=leilao_maior_lance,
+        leiloes_destaque=leiloes_destaque,
+    )
+    
+    
 @auction_bp.route("/leiloes")
 def leiloes():
     leiloes = get_all_leiloes()  # Nova função em queries.py
@@ -16,37 +39,17 @@ def leiloes():
 
 
 @auction_bp.route("/leiloes/<int:id>/lance")
-def leiloes_show(id):
-    leilao = get_leilao_by_id(id)
-    return render_template("/leilao/show.html", leilao=leilao)
+def get_leilao_by_id(leilao_id):
+    query = "SELECT * FROM leiloes WHERE id = %s"
+    result = execute_query(query, (leilao_id,))
+    return result[0] if result else None
 
 @auction_bp.route("/leiloes/<categoria>")
 def leiloes_categoria(categoria):
-    # Filtrando leilões por categoria
-    leiloes = Leilao.query.filter_by(categoria=categoria).all()
+    query = "SELECT * FROM leiloes WHERE categoria = %s"
+    leiloes = execute_query(query, (categoria,))
     return render_template("/leilao/categoria.html", categoria=categoria, leiloes=leiloes)
 
-@auction_bp.route("/")
-@auction_bp.route("/index")
-def index():
-    # Obter os leilões mais recentes
-    leiloes_recentes = Leilao.query.order_by(Leilao.data_inicio.desc()).limit(4).all()
-
-    # Obter o leilão com o maior lance atualmente
-    leilao_maior_lance = Leilao.query.order_by(Leilao.maior_lance.desc()).first()
-
-    # Obter os leilões em destaque (mais visualizados)
-    leiloes_destaque = Leilao.query.order_by(Leilao.visualizacoes.desc()).limit(2).all()
-
-    leilao_sort = Leilao.query.sort_by(Leilao.id).limit(1).all()
-    
-    return render_template(
-        "index.html",
-        leiloes_recentes=leiloes_recentes,
-        leilao_maior_lance=leilao_maior_lance,
-        leiloes_destaque=leiloes_destaque,
-        leilao_sort=leilao_sort,
-    )
 
 @auction_bp.route("/register", methods=["GET", "POST"])
 def register():
@@ -56,18 +59,22 @@ def register():
         senha = request.form["senha"]
 
         # Verificar se o e-mail já está registrado
-        usuario_existente = db_session.query(User).filter_by(email=email).first()
+        query = "SELECT * FROM users WHERE email = %s"
+        usuario_existente = execute_query(query, (email,))
         if usuario_existente:
             flash("Email já registrado!", "warning")
         else:
             senha_hash = bcrypt.generate_password_hash(senha).decode("utf-8")
-            novo_usuario = User(nome=nome, email=email, senha=senha_hash)
-            db_session.add(novo_usuario)
-            db_session.commit()
+            insert_query = """
+                INSERT INTO users (nome, email, senha) 
+                VALUES (%s, %s, %s)
+            """
+            execute_query(insert_query, (nome, email, senha_hash))
             flash("Usuário registrado com sucesso!", "success")
-            return redirect(url_for("login"))
+            return redirect(url_for("auth_bp.login"))
 
     return render_template("sign/register.html")
+
 
 @auction_bp.route("/dashboard")
 def dashboard():
@@ -77,9 +84,14 @@ def dashboard():
         return redirect(url_for("auth_bp.login"))
 
     # Obter dados do usuário
-    leiloes_ativos = Leilao.query.filter_by(criador_id=current_user.id, status="ativo").all()
-    lances_ativos = Lance.query.filter_by(usuario_id=current_user.id).all()
-    arremates = Leilao.query.filter_by(vencedor_id=current_user.id).all()
+    leiloes_ativos_query = "SELECT * FROM leiloes WHERE criador_id = %s AND status = 'ativo'"
+    leiloes_ativos = execute_query(leiloes_ativos_query, (current_user.id,))
+
+    lances_ativos_query = "SELECT * FROM lances WHERE usuario_id = %s"
+    lances_ativos = execute_query(lances_ativos_query, (current_user.id,))
+
+    arremates_query = "SELECT * FROM leiloes WHERE vencedor_id = %s"
+    arremates = execute_query(arremates_query, (current_user.id,))
 
     return render_template(
         "dashboard.html",
