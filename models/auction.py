@@ -5,7 +5,7 @@ from datetime import datetime
 app = Flask(__name__)
 
 # Configuração do banco de dados MySQL
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://flask_user:SenhaForte@123@localhost/leilao_db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://root:root@localhost/leilao_db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
@@ -20,6 +20,7 @@ class Leilao(db.Model):
     lance_maximo = db.Column(db.Float, nullable=False)  # NOVO
     data_inicio = db.Column(db.DateTime, default=datetime.utcnow)
     data_fim = db.Column(db.DateTime, nullable=False)
+    contador_lances = db.Column(db.Integer, default=0) 
     lances = db.relationship("Lance", backref="leilao", lazy=True)
 
 # Modelo para Lance
@@ -29,6 +30,7 @@ class Lance(db.Model):
     valor = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     leilao_id = db.Column(db.Integer, db.ForeignKey("leilao.id"), nullable=False)
+    contador_usuarios = db.Column(db.Integer, default=1)  # Contador de lances por usuário
 
 # Criar tabelas no banco de dados
 with app.app_context():
