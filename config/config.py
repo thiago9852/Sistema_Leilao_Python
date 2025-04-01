@@ -1,5 +1,16 @@
 import os
 
 class Config:
-    SECRET_KEY = os.getenv("app.config[""SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://flask_user:SenhaForte@123@localhost/leilao_db")
+    
+    # MySQL
+    
+    MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
+    MYSQL_USER = os.getenv("MYSQL_USER", "flask_user")
+    MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "SenhaForte@123")
+    MYSQL_DB = os.getenv("MYSQL_DB", "leilao_db")
+    MYSQL_POOL_SIZE = 10
+    
+    # WebSockets
+    REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+    SECRET_KEY = os.getenv("SECRET_KEY", "segredo_super_secreto")
     #Conexão com o Banco de dados aqui
