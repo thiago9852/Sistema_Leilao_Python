@@ -1,0 +1,1 @@
+from .auction import register_socket_handlers

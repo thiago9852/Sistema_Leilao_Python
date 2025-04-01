@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from models import Leilao, User, Lance  # Import the Leilao, User, and Lance models
+from models import Leilao, User, Lance
 from database.queries import get_leilao_by_id, get_all_leiloes
 from flask_bcrypt import Bcrypt  # Import bcrypt
 from flask_login import current_user  # Import current_user
