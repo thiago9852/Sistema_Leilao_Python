@@ -122,68 +122,34 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
+                            {% for leilao in leiloes_ativos %}
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
-                                            <img class="h-10 w-10 rounded-full"
-                                                src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80"
-                                                alt="">
+                                            <img class="h-10 w-10 rounded-full" src="{{ leilao.imagem }}" alt="{{ leilao.titulo }}">
                                         </div>
                                         <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">Carro Esportivo</div>
-                                            <div class="text-sm text-gray-500">Veículo</div>
+                                            <div class="text-sm font-medium text-gray-900">{{ leilao.titulo }}</div>
+                                            <div class="text-sm text-gray-500">{{ leilao.categoria }}</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    R$ 85.000.000
+                                    R$ {{ leilao.lance_atual }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    14
+                                    {{ leilao.total_lances }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <span
-                                        class="countdownTimer px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-red-500">
-
-                                    </span>
+                                    {{ leilao.tempo_restante }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="#" class="text-emerald-600 hover:text-emerald-900 mr-3">Editar</a>
+                                    <a href="{{ url_for('auction_bp.leiloes_show', id=leilao.id) }}" class="text-emerald-600 hover:text-emerald-900 mr-3">Editar</a>
                                     <a href="#" class="text-red-600 hover:text-red-900">Encerrar</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 h-10 w-10">
-                                            <img class="h-10 w-10 rounded-full"
-                                                src="https://images.adsttc.com/media/images/57a0/0c55/e58e/ce72/e600/00b4/large_jpg/ap_higienopolis_(4).jpg?1470106702"
-                                                alt="">
-                                        </div>
-                                        <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">APT Higienópolis 200m²</div>
-                                            <div class="text-sm text-gray-500">Imóvel</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    R$ 3.200.000
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    8
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    <span
-                                        class="countdownTimer px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-red-500">
-
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="#" class="text-emerald-600 hover:text-emerald-900 mr-3">Editar</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900">Encerrar</a>
-                                </td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -205,25 +171,25 @@
                 <p class="user-line-title"></p>
 
                 <div class="space-y-4">
+                    {% for lance in lances_ativos %}
                     <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
                         <div class="flex items-start">
-                            <img src="https://images.unsplash.com/photo-1535478044878-3ed83d5456ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80"
-                                alt="Coleção de Moedas" class="w-16 h-16 rounded object-cover mr-4">
+                            <img src="{{ lance.leilao.imagem }}" alt="{{ lance.leilao.titulo }}" class="w-16 h-16 rounded object-cover mr-4">
                             <div class="flex-1">
-                                <h3 class="font-medium text-lg">Coleção de Moedas</h3>
-                                <p class="text-gray-600 text-sm mb-2">Itens Diversos</p>
+                                <h3 class="font-medium text-lg">{{ lance.leilao.titulo }}</h3>
+                                <p class="text-gray-600 text-sm mb-2">{{ lance.leilao.categoria }}</p>
                                 <div class="flex justify-between items-center">
                                     <div>
                                         <span class="text-sm text-gray-500">Meu lance:</span>
-                                        <span class="font-bold ml-1">R$ 2.500</span>
+                                        <span class="font-bold ml-1">R$ {{ lance.valor }}</span>
                                     </div>
                                     <div>
                                         <span class="text-sm text-gray-500">Lance atual:</span>
-                                        <span class="font-bold ml-1 text-emerald-500">R$ 8.500</span>
+                                        <span class="font-bold ml-1 text-emerald-500">R$ {{ lance.leilao.lance_atual }}</span>
                                     </div>
                                     <div>
                                         <span class="text-sm text-gray-500">Termina em:</span>
-                                        <span class="countdownTimer text-red-500 font-bold ml-1"></span>
+                                        <span class="countdownTimer text-red-500 font-bold ml-1">{{ lance.leilao.tempo_restante }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -232,36 +198,7 @@
                             </button>
                         </div>
                     </div>
-
-                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                        <div class="flex items-start">
-                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80"
-                                alt="Tênis Esportivo" class="w-16 h-16 rounded object-cover mr-4">
-                            <div class="flex-1">
-                                <h3 class="font-medium text-lg">Tênis Esportivo Premium</h3>
-                                <p class="text-gray-600 text-sm mb-2">Itens Diversos</p>
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <span class="text-sm text-gray-500">Meu lance:</span>
-                                        <span class="font-bold ml-1">R$ 450</span>
-                                    </div>
-                                    <div>
-                                        <span class="text-sm text-gray-500">Lance atual:</span>
-                                        <span class="font-bold ml-1 text-emerald-500">R$ 450</span>
-                                    </div>
-                                    <div>
-                                        <span class="text-sm text-gray-500">Termina em:</span>
-                                        <span class="countdownTimer text-red-500 font-bold ml-1"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <button
-                                class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-3 rounded text-sm cursor-not-allowed"
-                                disabled>
-                                Seu lance é o maior
-                            </button>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </section>
 
