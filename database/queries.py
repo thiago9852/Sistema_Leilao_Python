@@ -1,4 +1,9 @@
 from database import get_db_connection
+from models.auction import Leilao
+
+
+def get_all_leiloes():
+    return Leilao.query.all()
 
 def get_leilao_by_id(leilao_id):
     conn = get_db_connection()
