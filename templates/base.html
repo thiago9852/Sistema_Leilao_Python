@@ -47,7 +47,7 @@
             <ul class="py-2" aria-labelledby="user-menu-button">
               {% if current_user.is_authenticated %}
               <li>
-                <a href="{{ url_for('dashboard')}}"
+                <a href="{{ url_for('auction_bp.dashboard')}}"
                   class="block px-4 py-2 text-sm text-white hover:bg-emerald-700 dark:text-gray-200 dark:hover:text-white">
                   Dashboard
                 </a>
@@ -94,7 +94,7 @@
                 class="block py-2 px-3 text-white rounded-sm md:hover:bg-transparent md:hover:text-[#6ee7b7]">Serviços</a>
             </li>
             <li>
-              <a href="/leiloes"
+              <a href="{{url_for('auction_bp.leiloes')}}"
                 class="block py-2 px-3 text-white rounded-sm md:hover:bg-transparent md:hover:text-[#6ee7b7]">Leilões</a>
             </li>
             <li>
@@ -111,6 +111,21 @@
       </div>
     </nav>
   </header>
+
+  <div class="mb-6">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="p-4 mb-4 text-sm rounded-lg 
+                    {% if category == 'success' %}bg-green-100 text-green-800
+                    {% elif category == 'danger' %}bg-red-100 text-red-800
+                    {% else %}bg-blue-100 text-blue-800{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+  </div>
 
   {% block content %}{% endblock %}
 
@@ -200,7 +215,7 @@
     </div>
   </footer>
 
-  <!-- Modal -->
+  <!-- Modal
   {% if current_user.is_authenticated %}
     <div id="bidModal" class="fixed inset-0 items-center justify-center bg-black bg-opacity-50 flex" style="display: none;">
       <div class="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -215,7 +230,7 @@
     </div>
   {% endif %}
 
-  <!-- Cookie policy 
+  
   <div class="fixed bottom-12 left-1/2 z-50 -translate-x-1/2 rounded-full bg-white dark:bg-gray-800 p-2 drop-shadow-2xl max-sm:w-11/12" id="gdpr">
     <div class="flex items-center justify-between gap-6 text-sm">
       <div class="content-left pl-4 dark:text-white">
@@ -245,9 +260,18 @@
   <script src="//unpkg.com/alpinejs" defer></script>
   <script src="/static/src/js/actions.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+
   <script>
     AOS.init();
   </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+  <script>
+      // Variáveis globais acessíveis em todos os templates
+      const currentUserId = "{{ current_user.id if current_user.is_authenticated else 'null' }}";
+      let currentLamportClock = 0;
+  </script>
+  <script src="/static/src/js/leilaoSocket.js"></script>
 </body>
 
 </html>

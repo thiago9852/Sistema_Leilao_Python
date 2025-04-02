@@ -18,8 +18,8 @@
                             d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
                     </svg>
                 </div>
-                <h2 class="text-xl font-semibold">Olá, {{current_user.nome}}</h2>
-                <p class="text-gray-600 text-sm">Membro desde: Mar/2025</p>
+                <h2 class="text-xl font-semibold">Olá, {{ current_user.nome }}</h2>
+                <p class="text-gray-600 text-sm">Membro desde: {{ current_user.data_criacao.strftime('%Y') }}</p>
                 <!-- <div class="mt-2">
                         <span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-1 rounded">Verificado</span>
                     </div> -->
@@ -130,7 +130,7 @@
                                             <img class="h-10 w-10 rounded-full" src="{{ leilao.imagem }}" alt="{{ leilao.titulo }}">
                                         </div>
                                         <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">{{ leilao.titulo }}</div>
+                                            <div class="text-sm font-medium text-gray-900">{{ leilao.item }}</div>
                                             <div class="text-sm text-gray-500">{{ leilao.categoria }}</div>
                                         </div>
                                     </div>
@@ -142,10 +142,10 @@
                                     {{ leilao.total_lances }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ leilao.tempo_restante }}
+                                    {{ leilao.lance_inicial }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{{ url_for('auction_bp.leiloes_show', id=leilao.id) }}" class="text-emerald-600 hover:text-emerald-900 mr-3">Editar</a>
+                                    <a href="#" class="text-emerald-600 hover:text-emerald-900 mr-3">Editar</a>
                                     <a href="#" class="text-red-600 hover:text-red-900">Encerrar</a>
                                 </td>
                             </tr>
@@ -155,10 +155,9 @@
                 </div>
 
                 <div class="mt-4 text-center">
-                    <button
-                        class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded inline-flex items-center">
+                    <a href="{{ url_for('auction_bp.criar_leilao') }}" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded inline-flex items-center">
                         <i class="fas fa-plus mr-2"></i> Criar Novo Leilão
-                    </button>
+                    </a>
                 </div>
             </section>
 

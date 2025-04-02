@@ -1,1 +1,1 @@
-from .auction import register_socket_handlers
+from .auction_events import register_socket_handlers

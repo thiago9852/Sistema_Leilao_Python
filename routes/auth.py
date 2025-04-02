@@ -22,23 +22,23 @@ def login():
         if user and bcrypt.check_password_hash(user.senha, senha):
             login_user(user)
             flash("Login bem-sucedido!", "success")
-            return redirect(url_for("auction.index"))  # Redireciona para a página de leilões
+            return redirect(url_for("auction_bp.dashboard"))  # Redireciona para a página de Usuário
         else:
             flash("Credenciais inválidas.", "danger")
 
-    return render_template("login.html")
+    return render_template("sign/login.html")
 
 @auth_bp.route("/logout")
 @login_required
 def logout():
     logout_user()
     flash("Logout realizado.", "info")
-    return redirect(url_for("auction.index"))  # Redireciona para a página inicial
+    return redirect(url_for("auction_bp.index"))  # Redireciona para a página inicial
 
 @auth_bp.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        username = request.form["username"]
+        nome = request.form["nome"]
         email = request.form["email"]
         senha = request.form["senha"]
         
@@ -49,7 +49,7 @@ def register():
         
         # Cria novo usuário
         hashed_password = bcrypt.generate_password_hash(senha).decode('utf-8')
-        new_user = User(username=username, email=email, senha=hashed_password)
+        new_user = User(nome=nome, email=email, senha=hashed_password)
         
         db.session.add(new_user)
         db.session.commit()
@@ -57,4 +57,4 @@ def register():
         flash("Registro realizado com sucesso! Faça login.", "success")
         return redirect(url_for("auth.login"))
     
-    return render_template("register.html")
+    return render_template("sign/register.html")

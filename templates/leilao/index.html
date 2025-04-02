@@ -2,6 +2,10 @@
 
 {% block content %}
 
+<div id="socket-notification" class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md hidden">
+    Novo lance recebido!
+</div>
+
 <section class="Items-auction mt-[10vh]">
     <div class="prod-auction auction-title" data-aos="fade-down">
         <h1 class="title-rubik max-w-2xl mb-3 text-3xl leading-none">Itens Diversos</h1>
@@ -9,91 +13,43 @@
         <span></span>
     </div>
 
-    <div class="auctions-container">
+    <div class="auctions-container ms-8">
         <div class="auctions-scroll">
-            <!-- Card 1 -->
-            <div class="auction-card" data-aos="fade-up">
-                <div class="countdownTimer time-left bg-red-600"></div>
-                <img src="https://assets.catawiki.nl/assets/2019/7/16/4/6/6/466d0273-0efa-4e2a-9187-d76ddc0345a7.jpg" alt="Relógio Vintage" class="item-image">
-                <div class="item-details">
-                    <h3 class="item-name">Relógio Vintage Raro Anos 60</h3>
-                    <div class="starting-bid">Lance inicial: <span>R$ 1.200,00</span></div>
-                    <div class="bid-info">
-                        <div class="bid-amount">Lance atual: <span>R$ 2.450,00</span></div>
-                        <div class="bid-user">Por: <span>LeiloeiroPro</span></div>
+            {% for leilao in categoria_outros %}
+                <div class="auction-card timeCount socket" data-aos="fade-up" data-leilao-id="{{ leilao.id }}">
+                    <div class="countdownTimer time-left bg-red-600" data-end-time="{{ leilao.data_fim.strftime('%Y-%m-%d %H:%M:%S') if leilao.data_fim else '' }}"> </div>
+                    <img src="{{ url_for('static', filename='uploads/' + leilao.imagem_url) }}" alt="Imagem do leilão">
+                        <div class="item-details">
+                            <h3 class="item-name">{{ leilao.item }}</h3>
+                            <div class="vehicle-specs">
+                                <span>{{ leilao.descricao }}</span>
+                            </div>
+                            <div class="starting-bid">Lance inicial: <span>R$ {{ leilao.lance_inicial
+                                    }}</span></div>
+                            <div class="bid-info">
+                                <div class="bid-amount">Lance atual:
+                                    <span class="current-bid-value">
+                                        R$ {{ leilao.maior_lance }}
+                                    </span>
+                                </div>
+                                <div class="bid-user">Por:
+                                    <span class="current-bid-user">
+                                        {{ leilao.maior_lance_user if leilao.maior_lance_user else "" }}
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="item-description">
+                                {{ leilao.sobre }}
+                            </p>
+                            <a href="{{ url_for('auction_bp.leilao_show', leilao_id=leilao.id) }}"
+                                class="bid-button bg-emerald-600 hover:bg-emerald-300">Fazer um lance</a>
+                        </div>
                     </div>
-                    <p class="item-description">
-                        Relógio vintage dos anos 60 em ótimo estado de conservação. 
-                        Funcionando perfeitamente, com caixa original e documentos.
-                        Peça rara para colecionadores.
-                    </p>
-                    <a href="/leiloes/veiculos" class="bid-button bg-emerald-600 hover:bg-emerald-300">Fazer um lance</a>
                 </div>
-            </div>
-            
-            <!-- Card 2 -->
-            <div class="auction-card" data-aos="fade-up">
-                <div class="countdownTimer time-left bg-red-600">3h 45m 12s</div>
-                <img src="https://www.vintageandmodernguitars.co.uk/wp-content/uploads/2020/06/t3-1536x1152.jpg" alt="Guitarra Fender" class="item-image">
-                <div class="item-details">
-                    <h3 class="item-name">Guitarra Fender Stratocaster 1975</h3>
-                    <div class="starting-bid">Lance inicial: <span>R$ 8.500,00</span></div>
-                    <div class="bid-info">
-                        <div class="bid-amount">Lance atual: <span>R$ 12.300,00</span></div>
-                        <div class="bid-user">Por: <span>SAM10</span></div>
-                    </div>
-                    <p class="item-description">
-                        Guitarra Fender Stratocaster original de 1975. Cor sunburst, 
-                        captadores originais, braço maple. Inclui case vintage.
-                        Estado de conservação excepcional.
-                    </p>
-                    <a href="/leiloes/show" class="bid-button bg-emerald-600 hover:bg-emerald-300">Fazer um lance</a>
-                </div>
-            </div>
-            
-            <!-- Card 3 -->
-            <div class="auction-card" data-aos="fade-up">
-                <div class="countdownTimer time-left bg-red-600">5d 2h 10m</div>
-                <img src="https://i.pinimg.com/originals/52/a4/ab/52a4ab064cf88bd6c8c1b3b4f2e66a5b.jpg" alt="Quadro de Arte" class="item-image">
-                <div class="item-details">
-                    <h3 class="item-name">Quadro Expressionista Assinado</h3>
-                    <div class="starting-bid">Lance inicial: <span>R$ 3.200,00</span></div>
-                    <div class="bid-info">
-                        <div class="bid-amount">Lance atual: <span>R$ 4.750,00</span></div>
-                        <div class="bid-user">Por: <span>ArtLover</span></div>
-                    </div>
-                    <p class="item-description">
-                        Quadro expressionista do artista contemporâneo João Silva. 
-                        Técnica mista sobre tela, 80x120cm, assinado e com certificado 
-                        de autenticidade. Data: 2018.
-                    </p>
-                    <a href="/leiloes/show" class="bid-button bg-emerald-600 hover:bg-emerald-300">Fazer um lance</a>
-                </div>
-            </div>
-            
-            <!-- Card 4 -->
-            <div class="auction-card" data-aos="fade-up">
-                <div class="countdownTimer time-left bg-red-600">12h 30m 45s</div>
-                <img src="https://maywines.com/wp-content/uploads/2023/02/lafite-rothschild-1982-pauillac-bordeaux-1000x1333.jpg" alt="Garrafa de Vinho" class="item-image">
-                <div class="item-details">
-                    <h3 class="item-name">Vinho Château Lafite 1982</h3>
-                    <div class="starting-bid">Lance inicial: <span>R$ 15.000,00</span></div>
-                    <div class="bid-info">
-                        <div class="bid-amount">Lance atual: <span>R$ 22.800,00</span></div>
-                        <div class="bid-user">Por: <span>ViniciusMs</span></div>
-                    </div>
-                    <p class="item-description">
-                        Garrafa de vinho Château Lafite Rothschild, safra 1982. 
-                        Proveniência garantida, armazenada em adega climatizada. 
-                        Considerada uma das melhores safras do século XX.
-                    </p>
-                    <a href="/leiloes/show" class="bid-button bg-emerald-600 hover:bg-emerald-300">Fazer um lance</a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
-
 
 <section class="veicles-auction mt-[15vh]">
     <div class="prod-auction auction-title" data-aos="fade-down">
@@ -104,108 +60,43 @@
 
     <div class="auctions-container">
         <div class="auctions-scroll">
-            <!-- Card 1 - Carro -->
-            <div class="auction-card" data-aos="fade-up">
-                <div class="countdownTimer time-left bg-red-600"></div>
-                <img src="https://th.bing.com/th?id=OSK.feef2b788817eb26951b3efed71beeee&w=224&h=200&c=7&rs=1&o=6&dpr=1.3&pid=SANGAM" alt="Carro Esportivo" class="item-image">
-                <div class="item-details">
-                    <div class="-badge bg-green-100 text-green-800">CARRO</div>
-                    <h3 class="item-name">Porsche 911 Carrera 2019</h3>
-                    <div class="vehicle-specs">
-                        <span><i class="fas fa-tachometer-alt"></i> 25.000 km</span>
-                        <span><i class="fas fa-gas-pump"></i> Gasolina</span>
-                        <span><i class="fas fa-cog"></i> Automático</span>
+            {% for leilao in categoria_veiculos %}
+            <div class="auction-card timeCount socket" data-aos="fade-up" data-leilao-id="{{ leilao.id }}">
+                <div class="countdownTimer time-left bg-red-600"
+                    data-end-time="{{ leilao.data_fim.strftime('%Y-%m-%d %H:%M:%S') if leilao.data_fim else '' }}">
+                    <img src="{{ url_for('static', filename='uploads/' + leilao.imagem_url) }}" alt="Imagem do leilão">
+                    <div class="item-details">
+                        <div class="-badge bg-green-100 text-green-800"></div>
+                        <h3 class="item-name">{{ leilao.item }}</h3>
+                        <div class="vehicle-specs">
+                            <span>{{ leilao.descricao }}</span>
+                        </div>
+                        <div class="starting-bid">Lance inicial: <span>R$ {{ leilao.lance_inicial }}</span></div>
+                        <div class="bid-info">
+                            <div class="bid-amount">Lance atual:
+                                <span class="current-bid-value">
+                                    {% if leilao.maior_lance %}
+                                    R$ {{ leilao.maior_lance_valor }}
+                                    {% else %}
+                                    R$ 00,00
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="bid-user">Por:
+                                <span class="current-bid-user">
+                                    {{ leilao.maior_lance_user if leilao.maior_lance_user else "" }}
+                                </span>
+                            </div>
+                        </div>
+                        <p class="item-description">
+                            {{ leilao.sobre }}
+                        </p>
+                        <a href="{{ url_for('auction_bp.leilao_show', leilao_id=leilao.id) }}"
+                            class="bid-button bg-emerald-600 hover:bg-emerald-300">Fazer um lance</a>
                     </div>
-                    <div class="starting-bid">Lance inicial: <span>R$ 320.000,00</span></div>
-                    <div class="bid-info">
-                        <div class="bid-amount">Lance atual: <span>R$ 385.000,00</span></div>
-                        <div class="bid-user">Por: <span>AutoCollector</span></div>
-                    </div>
-                    <p class="item-description">
-                        Porsche 911 Carrera 2019, vermelho, completo, único dono, 
-                        revisões todas na concessionária, sem sinistros, 
-                        documento em dia.
-                    </p>
-                    <a href="/leiloes/show" class="bid-button bg-emerald-600 hover:bg-emerald-300">Fazer um lance</a>
                 </div>
             </div>
-            
-            <!-- Card 2 - Moto -->
-            <div class="auction-card" data-aos="fade-up">
-                <div class="countdownTimer time-left bg-red-600"></div>
-                <img src="https://th.bing.com/th/id/OIP.Oo-YREQBV_2zhz2zED4A9AHaE8?w=275&h=183&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Moto Esportiva" class="item-image">
-                <div class="item-details">
-                    <div class="-badge bg-green-100 text-green-800">MOTO</div>
-                    <h3 class="item-name">Harley Davidson Fat Boy 2020</h3>
-                    <div class="vehicle-specs">
-                        <span><i class="fas fa-tachometer-alt"></i> 8.500 km</span>
-                        <span><i class="fas fa-gas-pump"></i> Gasolina</span>
-                        <span><i class="fas fa-cog"></i> 6 Marchas</span>
-                    </div>
-                    <div class="starting-bid">Lance inicial: <span>R$ 85.000,00</span></div>
-                    <div class="bid-info">
-                        <div class="bid-amount">Lance atual: <span>R$ 92.500,00</span></div>
-                        <div class="bid-user">Por: <span>MotoLover</span></div>
-                    </div>
-                    <p class="item-description">
-                        Harley Davidson Fat Boy 2020, preta fosca, acessórios originais, 
-                        escape aftermarket, pneus novos, documentação em ordem.
-                    </p>
-                    <a href="/leiloes/show" class="bid-button bg-emerald-600 hover:bg-emerald-300">Fazer um lance</a>
-                </div>
-            </div>
-            
-            <!-- Card 3 - Caminhão -->
-            <div class="auction-card" data-aos="fade-up">
-                <div class="countdownTimer time-left bg-red-600"></div>
-                <img src="https://th.bing.com/th/id/OIP.TNT8AH4QGR-ipD7QBKsPkwHaFj?w=256&h=192&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Caminhão" class="item-image">
-                <div class="item-details">
-                    <div class="-badge bg-green-100 text-green-800">CAMINHÃO</div>
-                    <h3 class="item-name">Volvo FH 540 2018</h3>
-                    <div class="vehicle-specs">
-                        <span><i class="fas fa-tachometer-alt"></i> 320.000 km</span>
-                        <span><i class="fas fa-gas-pump"></i> Diesel</span>
-                        <span><i class="fas fa-cog"></i> Automático</span>
-                    </div>
-                    <div class="starting-bid">Lance inicial: <span>R$ 420.000,00</span></div>
-                    <div class="bid-info">
-                        <div class="bid-amount">Lance atual: <span>R$ 450.000,00</span></div>
-                        <div class="bid-user">Por: <span>TransporteTotal</span></div>
-                    </div>
-                    <p class="item-description">
-                        Volvo FH 540 2018, bitrem, motor D13K540, cambio I-Shift, 
-                        suspensão a ar, último modelo antes do facelift, 
-                        manutenção em dia.
-                    </p>
-                    <a href="/leiloes/show" class="bid-button bg-emerald-600 hover:bg-emerald-300">Fazer um lance</a>
-                </div>
-            </div>
-            
-            <!-- Card 4 - SUV -->
-            <div class="auction-card" data-aos="fade-up">
-                <div class="countdownTimer time-left bg-red-600"></div>
-                <img src="https://th.bing.com/th/id/OIP.d8XPfUN1H0EmjoWKqhSa3AHaEC?w=312&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="SUV de Luxo" class="item-image">
-                <div class="item-details">
-                    <div class="-badge bg-green-100 text-green-800">CARRO</div>
-                    <h3 class="item-name">Range Rover Vogue 2021</h3>
-                    <div class="vehicle-specs">
-                        <span><i class="fas fa-tachometer-alt"></i> 18.000 km</span>
-                        <span><i class="fas fa-gas-pump"></i> Diesel</span>
-                        <span><i class="fas fa-cog"></i> Automático</span>
-                    </div>
-                    <div class="starting-bid">Lance inicial: <span>R$ 550.000,00</span></div>
-                    <div class="bid-info">
-                        <div class="bid-amount">Lance atual: <span>R$ 620.000,00</span></div>
-                        <div class="bid-user">Por: <span>LuxuryCars</span></div>
-                    </div>
-                    <p class="item-description">
-                        Range Rover Vogue 2021, branco, teto solar, bancos de couro, 
-                        multimídia completa, blindado nível III, 
-                        garantia de fábrica até 2024.
-                    </p>
-                    <a href="/leiloes/show" class="bid-button bg-emerald-600 hover:bg-emerald-300">Fazer um lance</a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
@@ -219,99 +110,37 @@
 
     <div class="auctions-container">
         <div class="auctions-scroll">
-
-            <!-- Card 1 - Apartamento -->
-            <div class="auction-card data-aos="fade-up"">
-                <div class="countdownTimer time-left bg-red-600"></div>
-                <img src="https://images.adsttc.com/media/images/57a0/0c55/e58e/ce72/e600/00b4/large_jpg/ap_higienopolis_(4).jpg?1470106702" alt="Apartamento de Luxo" class="item-image">
-                <div class="item-details">
-                    <div class="-badge bg-green-100 text-green-800">APARTAMENTO</div>
-                    <h3 class="item-name">Apartamento Higienópolis 200m²</h3>
-                    <div class="property-address">
-                        <i class="fas fa-map-marker-alt"></i> Higienópolis, São Paulo - SP
+            {% for leilao in categoria_imoveis %}
+            <div class="auction-card timeCount socket" data-aos="fade-up" data-leilao-id="{{ leilao.id }}">
+                <div class="countdownTimer time-left bg-red-600"
+                    data-end-time="{{ leilao.data_fim.strftime('%Y-%m-%d %H:%M:%S') if leilao.data_fim else '' }}">
+                    <img src="{{ leilao.imagem_url }}" alt="{{ leilao.item }}" class="item-image">
+                    <div class="item-details">
+                        <div class="-badge bg-green-100 text-green-800"></div>
+                        <h3 class="item-name">{{ leilao.item }}</h3>
+                        <div class="property-address">
+                            {{ leilao.descricao }}
+                        </div>
+                        <div class="starting-bid">Lance inicial: <span>R$ {{ leilao.lance_inicial }}</span></div>
+                        <div class="bid-info">
+                            <div class="bid-amount">Lance atual:
+                                <span class="current-bid-value">R$ {{ leilao.maior_lance }}</span>
+                            </div>
+                            <div class="bid-user">Por:
+                                <span class="current-bid-user">
+                                    {{ leilao.maior_lance_user if leilao.maior_lance_user else "" }}
+                                </span>
+                            </div>
+                        </div>
+                        <p class="item-description">
+                            {{ leilao.sobre }}
+                        </p>
+                        <a href="{{ url_for('auction_bp.leilao_show', leilao_id=leilao.id) }}"
+                            class="bid-button bg-emerald-600 hover:bg-emerald-300">Fazer um lance</a>
                     </div>
-                    <div class="starting-bid">Lance inicial: <span>R$ 2.500.000,00</span></div>
-                    <div class="bid-info">
-                        <div class="bid-amount">Lance atual: <span>R$ 3.200.000,00</span></div>
-                        <div class="bid-user">Por: <span>SPImóveis</span></div>
-                    </div>
-                    <p class="item-description">
-                        Apartamento de luxo em Higienópolis, reformado, 3 suítes, sacada gourmet,
-                        cozinha planejada, acabamentos de alto padrão, vaga na garagem.
-                    </p>
-                    <a href="/leiloes/show" class="bid-button bg-emerald-600 hover:bg-emerald-300">Fazer um lance</a>
                 </div>
-            </div>
-            
-            <!-- Card 2 - Casa -->
-            <div class="auction-card" data-aos="fade-up">
-                <div class="countdownTimer time-left bg-red-600"></div>
-                <img src="https://th.bing.com/th/id/OIP.UrGC-bmiTjRpSfoeBjmC-QHaEK?w=1400&h=787&rs=1&pid=ImgDetMain" alt="Casa Padrão" class="item-image">
-                <div class="item-details">
-                    <div class="-badge bg-green-100 text-green-800">CASA</div>
-                    <h3 class="item-name">Casa Alphaville 450m²</h3>
-                    <div class="property-address">
-                        <i class="fas fa-map-marker-alt"></i> Alphaville, Barueri - SP
-                    </div>
-                    <div class="starting-bid">Lance inicial: <span>R$ 4.800.000,00</span></div>
-                    <div class="bid-info">
-                        <div class="bid-amount">Lance atual: <span>R$ 5.350.000,00</span></div>
-                        <div class="bid-user">Por: <span>PrimeHome</span></div>
-                    </div>
-                    <p class="item-description">
-                        Mansão em Alphaville com piscina, jardim, home theater, área gourmet,
-                        quintal amplo, 5 suítes, dependências completas, segurança 24h.
-                    </p>
-                    <a href="/leiloes/show" class="bid-button bg-emerald-600 hover:bg-emerald-300">Fazer um lance</a>
-                </div>
-            </div>
-            
-            <!-- Card 3 - Terreno -->
-            <div class="auction-card" data-aos="fade-up">
-                <div class="countdownTimer time-left bg-red-600"></div>
-                <img src="https://www.lbimoveisbauru.com.br/cdn/uploads/lbimoveisbauru/imoveis/TERDB50A/terreno-para-venda-3AEF144E-D3D3-4CDE-971D-DE154CD4A6D4.jpg" alt="Terreno Residencial" class="item-image">
-                <div class="item-details">
-                    <div class="-badge bg-green-100 text-green-800">TERRENO</div>
-                    <h3 class="item-name">Terreno Residencial 1.200m²</h3>
-                    <div class="property-address">
-                        <i class="fas fa-map-marker-alt"></i> Guarulhos, Centro - SP
-                    </div>
-                    <div class="starting-bid">Lance inicial: <span>R$ 1.200.000,00</span></div>
-                    <div class="bid-info">
-                        <div class="bid-amount">Lance atual: <span>R$ 1.450.000,00</span></div>
-                        <div class="bid-user">Por: <span>ConstruSP</span></div>
-                    </div>
-                    <p class="item-description">
-                        Terreno residencial plano em condomínio fechado, ótima localização,
-                        permitido construir até 800m², topografia regular, excelente potencial.
-                    </p>
-                    <a href="/leiloes/show" class="bid-button bg-emerald-600 hover:bg-emerald-300">Fazer um lance</a>
-                </div>
-            </div>
-            
-            <!-- Card 4 - Comercial -->
-            <div class="auction-card" data-aos="fade-up">
-                <div class="countdownTimer time-left bg-red-600"></div>
-                <img src="https://www.quadrilatero.ind.br/cache/images/120-pt-br-1170x520.jpg" alt="Sala Comercial" class="item-image">
-                <div class="item-details">
-                    <div class="-badge bg-green-100 text-green-800">COMERCIAL</div>
-                    <h3 class="item-name">Sala Comercial 180m²</h3>
-                    <div class="property-address">
-                        <i class="fas fa-map-marker-alt"></i> Avenida Paulista, São Paulo - SP
-                    </div>
-                    <div class="starting-bid">Lance inicial: <span>R$ 3.500.000,00</span></div>
-                    <div class="bid-info">
-                        <div class="bid-amount">Lance atual: <span>R$ 4.100.000,00</span></div>
-                        <div class="bid-user">Por: <span>CorretoraSP</span></div>
-                    </div>
-                    <p class="item-description">
-                        Sala comercial na Avenida Paulista, andar alto, vista panorâmica,
-                        pronto para move-in, elevadores sociais e de serviço, ar condicionado central.
-                    </p>
-                    <a href="/leiloes/show" class="bid-button bg-emerald-600 hover:bg-emerald-300">Fazer um lance</a>
-                </div>
+                {% endfor %}
             </div>
         </div>
-    </div>
 </section>
 {% endblock %}

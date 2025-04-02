@@ -10,8 +10,7 @@ class Config:
     MYSQL_POOL_SIZE = 10
     
     # WebSockets
-    REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
-    SECRET_KEY = os.getenv("SECRET_KEY", "segredo_super_secreto")
+
     
     @property
     def SQLALCHEMY_DATABASE_URI(self):

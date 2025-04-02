@@ -21,7 +21,6 @@ let isManualScroll = false;
     }
 
     function activateSection(index) {
-        // Remove classes ativas de todas as seções
         sections.forEach(section => {
             section.classList.remove('active');
             
@@ -46,7 +45,6 @@ let isManualScroll = false;
     function animateText(index) {
         const texts = sections[index].querySelectorAll('.text-reveal');
         texts.forEach((text, i) => {
-            // Delay escalonado para cada elemento de texto
             setTimeout(() => {
                 text.classList.add('reveal');
             }, i * 200);
@@ -102,7 +100,7 @@ let isManualScroll = false;
                     }
                 }
             });
-        }, { threshold: 0.7 }); // Aumentei o threshold para 70%
+        }, { threshold: 0.7 });
 
         sections.forEach(section => observer.observe(section));
     }
@@ -137,7 +135,7 @@ document.addEventListener('DOMContentLoaded', initCarousel);
 
 
 /*  */
-/* Back to top */
+/* Botão de voltar ao topo */
 var toTopButton = document.getElementById("to-top-button");
 
     if (toTopButton) {
@@ -161,7 +159,7 @@ var toTopButton = document.getElementById("to-top-button");
 
 
 /*  */
-/* Slide */
+/* Slide show leilao */
 const slides = document.querySelector('.slides');
 const prevButton = document.querySelector('.prev');
 const nextButton = document.querySelector('.next');
@@ -184,12 +182,40 @@ nextButton.addEventListener('click', () => {
 window.addEventListener('resize', updateSlider);
 
 
-/**  */
-/* Modal */
-document.getElementById("openModal").addEventListener("click", function() {
-    document.getElementById("bidModal").classList.remove("hidden");
-});
-
-document.getElementById("closeModal").addEventListener("click", function() {
-    document.getElementById("bidModal").classList.add("hidden");
-});
+/* */
+/* Atualizar lançe */
+document.addEventListener('DOMContentLoaded', function() {
+    const socket = io();
+    const notification = document.getElementById('socket-notification');
+    
+    // Função para mostrar notificação
+    function showNotification() {
+        notification.classList.remove('hidden');
+        setTimeout(() => {
+            notification.classList.add('hidden');
+        }, 3000);
+    }
+    
+    // Atualizar lances em tempo real
+    socket.on('atualizacao_lance', function(data) {
+        // Encontrar todos os cards do leilão atualizado
+        const cards = document.querySelectorAll(`.auction-card[data-leilao-id="${data.leilao_id}"]`);
+        
+        cards.forEach(card => {
+            // Atualizar valor do lance
+            const bidValueElements = card.querySelectorAll('.current-bid-value');
+            bidValueElements.forEach(el => {
+                el.textContent = `R$ ${data.maior_lance.toFixed(2).replace('.', ',')}`;
+            });
+            
+            // Atualizar nome do usuário
+            const bidUserElements = card.querySelectorAll('.current-bid-user');
+            bidUserElements.forEach(el => {
+                el.textContent = data.usuario_nome;
+            });
+        });
+        
+        // Mostrar notificação
+        showNotification();
+    });
+})
